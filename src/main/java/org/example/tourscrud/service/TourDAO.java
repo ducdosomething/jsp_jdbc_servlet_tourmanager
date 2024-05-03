@@ -13,6 +13,8 @@ public class TourDAO implements ITourDAO {
     private String jdbcPassword = "ducle211201";
 
     private static final String SELECT_ALL_TOURS = "select * from tour";
+    private static final String UPDATE_TOURS_SQL = "update tour set code = ?,destination= ?, price =? where id = ?;";
+    private static final String SELECT_TOUR_BY_ID = "select id,code,destination,price from tour where id =?";
 
     public TourDAO(){
 
@@ -51,7 +53,24 @@ public class TourDAO implements ITourDAO {
 
     @Override
     public Tour searchTourById(int id) {
-        return null;
+        Tour tour = null;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TOUR_BY_ID);) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                String code = rs.getString("code");
+                String destination = rs.getString("destination");
+                double price = rs.getDouble("price");
+                String img = rs.getString("img");
+                tour = new Tour(id, code, destination, price, img);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return tour;
     }
 
     @Override
@@ -86,7 +105,16 @@ public class TourDAO implements ITourDAO {
     }
 
     @Override
-    public boolean updateUser(Tour tour) throws SQLException {
-        return false;
+    public boolean updateTour(Tour tour) throws SQLException {
+        boolean rowUpdated;
+        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_TOURS_SQL);) {
+            statement.setString(1, tour.getCode());
+            statement.setString(2, tour.getDestination());
+            statement.setDouble(3, tour.getPrice());
+            statement.setInt(4, tour.getId());
+
+            rowUpdated = statement.executeUpdate() > 0;
+        }
+        return rowUpdated;
     }
 }

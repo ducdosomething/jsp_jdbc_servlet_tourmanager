@@ -8,5 +8,5 @@ public interface ITourDAO {
     public Tour searchTourById(int id);
     public List<Tour> showAllTours();
     public boolean deleteTour(int id) throws SQLException;
-    public boolean updateUser(Tour tour) throws SQLException;
+    public boolean updateTour(Tour tour) throws SQLException;
 }
