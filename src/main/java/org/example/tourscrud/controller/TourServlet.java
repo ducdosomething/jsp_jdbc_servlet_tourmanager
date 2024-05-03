@@ -57,9 +57,9 @@ public class TourServlet extends HttpServlet {
                 case "edit":
                     showEditForm(req, resp);
                     break;
-//                case "delete":
-//                    deleteUser(request, response);
-//                    break;
+                case "delete":
+                    deleteTour(req, resp);
+                    break;
                 default:
                     listTour(req, resp);
                     break;
@@ -103,12 +103,12 @@ public class TourServlet extends HttpServlet {
 
     private void insertTour(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-//        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         String code = request.getParameter("code");
         String destination = request.getParameter("destination");
         double price = Double.parseDouble(request.getParameter("price"));
         String img = request.getParameter("img");
-        Tour newTour = new Tour(-1, code, destination, price, img);
+        Tour newTour = new Tour(id, code, destination, price, img);
         tourDAO.addNewTour(newTour);
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/create.jsp");
         dispatcher.forward(request, response);
@@ -118,5 +118,15 @@ public class TourServlet extends HttpServlet {
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/create.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void deleteTour(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException, SQLException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        tourDAO.deleteTour(id);
+        List<Tour> tours = tourDAO.showAllTours();
+        req.setAttribute("listTour", tours);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("view/list.jsp");
+        dispatcher.forward(req, resp);
     }
 }

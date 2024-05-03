@@ -19,6 +19,12 @@
                 <h2>Add New Tour</h2>
             </caption>
             <tr>
+                <th>Tour ID:</th>
+                <td>
+                    <input type="text" name="id" id="id" size="45"/>
+                </td>
+            </tr>
+            <tr>
                 <th>Tour Code:</th>
                 <td>
                     <input type="text" name="code" id="code" size="45"/>
