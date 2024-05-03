@@ -30,9 +30,9 @@ public class TourServlet extends HttpServlet {
 
         try {
             switch (action) {
-//                case "create":
-//                    insertUser(req, resp);
-//                    break;
+                case "create":
+                    insertTour(req, resp);
+                    break;
                 case "edit":
                     updateTour(req, resp);
                     break;
@@ -51,9 +51,9 @@ public class TourServlet extends HttpServlet {
 
         try {
             switch (action) {
-//                case "create":
-//                    showNewForm(request, response);
-//                    break;
+                case "create":
+                    showNewForm(req, resp);
+                    break;
                 case "edit":
                     showEditForm(req, resp);
                     break;
@@ -99,5 +99,24 @@ public class TourServlet extends HttpServlet {
         req.setAttribute("tour", existingTour);
         dispatcher.forward(req, resp);
 
+    }
+
+    private void insertTour(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException, ServletException {
+//        int id = Integer.parseInt(request.getParameter("id"));
+        String code = request.getParameter("code");
+        String destination = request.getParameter("destination");
+        double price = Double.parseDouble(request.getParameter("price"));
+        String img = request.getParameter("img");
+        Tour newTour = new Tour(-1, code, destination, price, img);
+        tourDAO.addNewTour(newTour);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/create.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("view/create.jsp");
+        dispatcher.forward(request, response);
     }
 }

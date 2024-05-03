@@ -13,8 +13,10 @@ public class TourDAO implements ITourDAO {
     private String jdbcPassword = "ducle211201";
 
     private static final String SELECT_ALL_TOURS = "select * from tour";
+    private static final String INSERT_TOUR_SQL = "INSERT INTO tour (code, destination, price, img) VALUES (?, ?, ?, ?);";
     private static final String UPDATE_TOURS_SQL = "update tour set code = ?,destination= ?, price =? where id = ?;";
     private static final String SELECT_TOUR_BY_ID = "select id,code,destination,price from tour where id =?";
+    private static final String DELETE_USERS_SQL = "delete from tour where id = ?;";
 
     public TourDAO(){
 
@@ -48,7 +50,17 @@ public class TourDAO implements ITourDAO {
     }
     @Override
     public void addNewTour(Tour tour) throws SQLException {
-
+        System.out.println(INSERT_TOUR_SQL);
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TOUR_SQL)) {
+            preparedStatement.setString(1, tour.getCode());
+            preparedStatement.setString(2, tour.getDestination());
+            preparedStatement.setDouble(3, tour.getPrice());
+            preparedStatement.setString(4, tour.getImg());
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
     }
 
     @Override
