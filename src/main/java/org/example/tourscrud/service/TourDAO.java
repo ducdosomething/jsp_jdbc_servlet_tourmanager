@@ -19,8 +19,8 @@ public class TourDAO implements ITourDAO {
 
     private static final String SELECT_ALL_TOURS = "SELECT tour.*, t_type.type as type_name  FROM tour join t_type on tour.type_id = t_type.id order by tour.id;";
     private static final String INSERT_TOUR_SQL = "INSERT INTO tour (id, code, destination, price, img, type_id) VALUES (?, ?, ?, ?, ?, ?);";
-    private static final String UPDATE_TOURS_SQL = "update tour set code = ?,destination= ?, price =? where id = ?;";
-    private static final String SELECT_TOUR_BY_ID = "select id,code,destination,price from tour where id =?";
+    private static final String UPDATE_TOURS_SQL = "update tour set code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
+    private static final String SELECT_TOUR_BY_ID = "select code, destination, price, img, type_id from tour join t_type on tour.type_id = t_type.id  where tour.id = ?;";
     private static final String SELECT_TYPE_BY_ID = "select * from t_type where id =?";
     private static final String DELETE_TOUR_SQL = "delete from tour where id = ?;";
     private static final String UPLOADS_PIC_SQL = "INSERT INTO tour (img) VALUES (?);";
@@ -87,7 +87,11 @@ public class TourDAO implements ITourDAO {
                 String destination = rs.getString("destination");
                 double price = rs.getDouble("price");
                 String img = rs.getString("img");
-                tour = new Tour(id, code, destination, price, img);
+                int typeId = rs.getInt("id");
+                String typeName = rs.getString("name");
+                Type type = new Type(typeId, typeName);
+
+                tour = new Tour(id, code, destination, price, img, type);
             }
         } catch (SQLException e) {
             printSQLException(e);

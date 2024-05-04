@@ -28,7 +28,7 @@
                 <th>Tour Code:</th>
                 <td>
                     <input type="text" name="code" size="45"
-                           value="<c:out value='${requestScope["tour"].getCode}' />"
+                           value="<c:out value='${tour.code}' />"
                     />
                 </td>
             </tr>
@@ -46,6 +46,22 @@
                     <input type="text" name="price" size="15"
                            value="<c:out value='${tour.price}' />"
                     />
+                </td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                    <input type="file" name="img" id="img" size="15"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>
+                    <select id="type" name="type">
+                        <c:forEach items="${t_types}" var="t">
+                            <option value="${t.typeId}">${t.typeName}</option>
+                        </c:forEach>
+                    </select>
                 </td>
             </tr>
             <tr>
