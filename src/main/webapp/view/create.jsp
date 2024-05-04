@@ -13,7 +13,7 @@
     </h2>
 </center>
 <div align="center">
-    <form method="post" action="UploadFileServlet" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         <table border="1" cellpadding="5">
             <caption>
                 <h2>Add New Tour</h2>
