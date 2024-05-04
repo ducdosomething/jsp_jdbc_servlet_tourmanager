@@ -51,7 +51,10 @@
             <tr>
                 <th>Image</th>
                 <td>
-                    <input type="file" name="img" id="img" size="15"/>
+                    <input type="file" name="img" id="img" size="15" onchange="handleInputImgChange()"/>
+                    <div>
+                        <img id="imgTour" src="${tour.img}" />
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -59,7 +62,11 @@
                 <td>
                     <select id="type" name="type">
                         <c:forEach items="${t_types}" var="t">
-                            <option value="${t.typeId}">${t.typeName}</option>
+                            <option value="${t.typeId}"
+                            <c:if test="${t.typeId == tour.type.typeId}">
+                                selected
+                            </c:if>
+                            >${t.typeName}</option>
                         </c:forEach>
                     </select>
                 </td>
@@ -72,5 +79,16 @@
         </table>
     </form>
 </div>
+
+    <script>
+        function handleInputImgChange(){
+            let imgInp = document.getElementById("img");
+            let imgTour = document.getElementById("imgTour")
+            const [file] = imgInp.files
+            if (file) {
+                imgTour.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
 </body>
 </html>

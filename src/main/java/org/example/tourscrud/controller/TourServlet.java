@@ -104,6 +104,9 @@ public class TourServlet extends HttpServlet {
         Tour existingTour = tourDAO.searchTourById(id);
         RequestDispatcher dispatcher = req.getRequestDispatcher("view/edit.jsp");
         req.setAttribute("tour", existingTour);
+
+        List<Type> types = tourDAO.showAllType();
+        req.setAttribute("t_types", types);
         dispatcher.forward(req, resp);
 
     }
