@@ -13,7 +13,7 @@
     </h2>
 </center>
 <div align="center">
-    <form method="post">
+    <form method="post" action="UploadFileServlet" enctype="multipart/form-data">
         <table border="1" cellpadding="5">
             <caption>
                 <h2>Add New Tour</h2>
@@ -45,7 +45,7 @@
             <tr>
                 <th>Image</th>
                 <td>
-                    <input type="text" name="img" id="img" size="15"/>
+                    <input type="file" name="img" id="img" size="15"/>
                 </td>
             </tr>
             <tr>

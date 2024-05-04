@@ -3,6 +3,10 @@ package org.example.tourscrud.service;
 import org.example.tourscrud.model.ITourDAO;
 import org.example.tourscrud.model.Tour;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.Part;
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +21,7 @@ public class TourDAO implements ITourDAO {
     private static final String UPDATE_TOURS_SQL = "update tour set code = ?,destination= ?, price =? where id = ?;";
     private static final String SELECT_TOUR_BY_ID = "select id,code,destination,price from tour where id =?";
     private static final String DELETE_TOUR_SQL = "delete from tour where id = ?;";
+    private static final String UPLOADS_PIC_SQL = "INSERT INTO tour (img) VALUES (?);";
 
     public TourDAO(){
 
@@ -134,5 +139,38 @@ public class TourDAO implements ITourDAO {
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
+    }
+
+    @Override
+    public void saveImagePathToDatabase(String imagePath) throws ServletException {
+        System.out.println(UPLOADS_PIC_SQL);
+        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPLOADS_PIC_SQL)) {
+            preparedStatement.setString(1, imagePath);
+            System.out.println(preparedStatement);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new ServletException("Database error: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+        }
+        return "";
+    }
+
+    @Override
+    public File getFolderUpload() {
+        File folderUpload = new File("D:\\DucFile\\intellij\\module3\\tours-crud\\src\\main\\webapp\\img");
+        if (!folderUpload.exists()) {
+            folderUpload.mkdirs();
+        }
+        return folderUpload;
     }
 }
