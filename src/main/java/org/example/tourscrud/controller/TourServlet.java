@@ -1,6 +1,7 @@
 package org.example.tourscrud.controller;
 
 import org.example.tourscrud.model.Tour;
+import org.example.tourscrud.model.Type;
 import org.example.tourscrud.service.TourDAO;
 
 import javax.servlet.RequestDispatcher;
@@ -124,8 +125,10 @@ public class TourServlet extends HttpServlet {
                 String code = request.getParameter("code");
                 String destination = request.getParameter("destination");
                 double price = Double.parseDouble(request.getParameter("price"));
+                int type = Integer.parseInt(request.getParameter("type"));
 
-                Tour tour = new Tour(id, code, destination, price, "/img/" + fileName);
+                Type type1 = tourDAO.searchByTypeId(type);
+                Tour tour = new Tour(id, code, destination, price, "/img/" + fileName, type1);
                 try {
                     tourDAO.addNewTour(tour);
                 } catch (SQLException e) {
@@ -163,6 +166,10 @@ public class TourServlet extends HttpServlet {
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("view/create.jsp");
+
+        List<Type> types = tourDAO.showAllType();
+
+        request.setAttribute("t_types", types);
         dispatcher.forward(request, response);
     }
 

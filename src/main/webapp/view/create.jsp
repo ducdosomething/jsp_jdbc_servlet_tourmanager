@@ -49,6 +49,16 @@
                 </td>
             </tr>
             <tr>
+                <th>Type</th>
+                <td>
+                    <select id="type" name="type">
+                        <c:forEach items="${t_types}" var="t">
+                            <option value="${t.typeId}">${t.typeName}</option>
+                        </c:forEach>
+                    </select>
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="Save"/>
                 </td>

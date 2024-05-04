@@ -2,6 +2,7 @@ package org.example.tourscrud.service;
 
 import org.example.tourscrud.model.ITourDAO;
 import org.example.tourscrud.model.Tour;
+import org.example.tourscrud.model.Type;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,14 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TourDAO implements ITourDAO {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "ducle211201";
 
-    private static final String SELECT_ALL_TOURS = "select * from tour";
-    private static final String INSERT_TOUR_SQL = "INSERT INTO tour (id, code, destination, price, img) VALUES (?, ?, ?, ?, ?);";
+    private static final String SELECT_ALL_TOURS = "SELECT tour.*, t_type.type as type_name  FROM tour join t_type on tour.type_id = t_type.id order by tour.id;";
+    private static final String INSERT_TOUR_SQL = "INSERT INTO tour (id, code, destination, price, img, type_id) VALUES (?, ?, ?, ?, ?, ?);";
     private static final String UPDATE_TOURS_SQL = "update tour set code = ?,destination= ?, price =? where id = ?;";
     private static final String SELECT_TOUR_BY_ID = "select id,code,destination,price from tour where id =?";
+    private static final String SELECT_TYPE_BY_ID = "select * from t_type where id =?";
     private static final String DELETE_TOUR_SQL = "delete from tour where id = ?;";
     private static final String UPLOADS_PIC_SQL = "INSERT INTO tour (img) VALUES (?);";
 
@@ -56,12 +58,14 @@ public class TourDAO implements ITourDAO {
     @Override
     public void addNewTour(Tour tour) throws SQLException {
         System.out.println(INSERT_TOUR_SQL);
+//        List<Type> type = showAllType();
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TOUR_SQL)) {
             preparedStatement.setInt(1, tour.getId());
             preparedStatement.setString(2, tour.getCode());
             preparedStatement.setString(3, tour.getDestination());
             preparedStatement.setDouble(4, tour.getPrice());
             preparedStatement.setString(5, tour.getImg());
+            preparedStatement.setInt(6, tour.getType().getTypeId());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -107,7 +111,11 @@ public class TourDAO implements ITourDAO {
                 Double price = rs.getDouble("price");
                 String img = rs.getString("img");
 
-                Tour tour = new Tour(id, code, destination, price, img);
+                int typeId = rs.getInt("type_id");
+                String typeName = rs.getString("type_name");
+                Type type = new Type(typeId, typeName);
+
+                Tour tour = new Tour(id, code, destination, price, img, type);
                 tours.add(tour);
             }
         } catch (SQLException sqlException) {
@@ -172,5 +180,47 @@ public class TourDAO implements ITourDAO {
             folderUpload.mkdirs();
         }
         return folderUpload;
+    }
+
+    @Override
+    public Type searchByTypeId(int id) {
+        Type type = null;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TYPE_BY_ID);) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                int typeId = Integer.parseInt(rs.getString("id"));
+                String typeName = rs.getString("type");
+
+                type = new Type(typeId, typeName);
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return type;
+    }
+    public List<Type> showAllType() {
+        List<Type> ty = new ArrayList<>();
+
+        try {
+            Connection connection = getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("select * from t_type");
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String typ = rs.getString("type");
+
+                Type ty1 = new Type(id,typ);
+                ty.add(ty1);
+            }
+        } catch (SQLException sqlException) {
+            printSQLException(sqlException);
+        }
+
+        return ty;
     }
 }

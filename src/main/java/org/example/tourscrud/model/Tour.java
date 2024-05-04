@@ -7,6 +7,9 @@ public class Tour {
     private double price;
     private String img;
 
+//    private int typeId;
+    private Type type;
+
     public Tour() {
     }
 
@@ -16,6 +19,23 @@ public class Tour {
         this.destination = destination;
         this.price = price;
         this.img = img;
+    }
+
+    public Tour(int id, String code, String destination, double price, String img, Type type) {
+        this.id = id;
+        this.code = code;
+        this.destination = destination;
+        this.price = price;
+        this.img = img;
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public int getId() {

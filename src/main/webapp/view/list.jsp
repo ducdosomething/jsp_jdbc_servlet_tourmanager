@@ -22,6 +22,7 @@
             <th>Destination</th>
             <th>Price</th>
             <th>Image</th>
+            <th>Type</th>
             <th>Actions</th>
         </tr>
         <c:forEach var="tour" items="${listTour}">
@@ -33,6 +34,7 @@
                 <td>
                     <img src="${tour.img}"/>
                 </td>
+                <td>${tour.type.typeName}</td>
                 <td>
                     <a href="/tours?action=edit&id=${tour.id}">Edit</a>
                     <a href="/tours?action=delete&id=${tour.id}">Delete</a>

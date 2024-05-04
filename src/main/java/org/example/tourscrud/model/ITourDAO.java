@@ -15,4 +15,6 @@ public interface ITourDAO {
     public void saveImagePathToDatabase(String imagePath) throws ServletException;
     public String extractFileName(Part part);
     public File getFolderUpload();
+    public Type searchByTypeId(int id);
+    List<Type> showAllType();
 }
