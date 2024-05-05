@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="/css/home.css">
-    <title>Tour Manager</title>
+    <title>Mixi Vivu</title>
 </head>
 
 <body>
@@ -17,10 +17,10 @@
     <a href=""><img src="/img/logovivu.png" alt=""></a>
     <div>
         <ul class="navbar">
-            <li><a href="#">Home</a></li>
+            <li><a href="home">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Blog</a></li>
-            <li><a href="#">Hotline</a></li>
+            <li><a href="tours">Tour</a></li>
         </ul>
     </div>
 </section>
@@ -28,13 +28,5 @@
 <section id="hero">
     <img src="/img/banner.jpg" alt="">
 </section>
-
-<%--<h1><%= "Hello chị Kiều Anh!" %>--%>
-<%--</h1>--%>
-<%--<br/>--%>
-<%--<a href="tours">Tour manager</a>--%>
-
-
 </body>
-
 </html>
