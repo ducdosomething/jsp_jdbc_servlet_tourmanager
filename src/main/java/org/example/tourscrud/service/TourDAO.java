@@ -15,7 +15,7 @@ import java.util.List;
 public class TourDAO implements ITourDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL=false";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "ducle211201";
+    private String jdbcPassword = "quydang123456";
 
     private static final String SELECT_ALL_TOURS = "SELECT tour.*, t_type.type as type_name  FROM tour join t_type on tour.type_id = t_type.id order by tour.id;";
     private static final String INSERT_TOUR_SQL = "INSERT INTO tour (id, code, destination, price, img, type_id) VALUES (?, ?, ?, ?, ?, ?);";
@@ -132,7 +132,8 @@ public class TourDAO implements ITourDAO {
     @Override
     public boolean deleteTour(int id) throws SQLException {
         boolean rowDelete;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_TOUR_SQL);) {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_TOUR_SQL);) {
             statement.setInt(1, id);
             rowDelete = statement.executeUpdate() >0;
         }
@@ -147,7 +148,7 @@ public class TourDAO implements ITourDAO {
             statement.setString(2, tour.getDestination());
             statement.setDouble(3, tour.getPrice());
             statement.setInt(4, tour.getId());
-
+            statement.setString(5,tour.getType().getTypeName());
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;

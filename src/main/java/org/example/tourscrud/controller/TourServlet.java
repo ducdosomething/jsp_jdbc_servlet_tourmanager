@@ -30,6 +30,9 @@ public class TourServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         String action = req.getParameter("action");
         if (action == null) {
             action = "";
@@ -43,6 +46,11 @@ public class TourServlet extends HttpServlet {
                 case "edit":
                     updateTour(req, resp);
                     break;
+                case "delete":
+                    deleteTour(req,resp);
+                    break;
+                default:
+                    listTour(req,resp);
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
@@ -51,6 +59,9 @@ public class TourServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
         String action = req.getParameter("action");
         if (action == null) {
             action = "";
@@ -65,7 +76,7 @@ public class TourServlet extends HttpServlet {
                     showEditForm(req, resp);
                     break;
                 case "delete":
-                    deleteTour(req, resp);
+                    showFormDelete(req, resp);
                     break;
                 default:
                     listTour(req, resp);
@@ -76,11 +87,19 @@ public class TourServlet extends HttpServlet {
         }
     }
 
+    private void showFormDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        Tour tour = tourDAO.searchTourById(id);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("view/delete.jsp");
+        req.setAttribute("listdelete", tour);
+        dispatcher.forward(req, resp);
+    }
+
     private void listTour(HttpServletRequest req, HttpServletResponse resp)
             throws SQLException, IOException, ServletException {
         List<Tour> listTour = tourDAO.showAllTours();
         req.setAttribute("listTour", listTour);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("view/list.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/view/list.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -92,7 +111,8 @@ public class TourServlet extends HttpServlet {
         double price = Double.parseDouble(req.getParameter("price"));
         String img = req.getParameter("img");
 
-        Tour editTour = new Tour(id, code, destination, price, img);
+        Type type = tourDAO.searchByTypeId(id_type);
+        Tour editTour = new Tour(id, code, destination, price, img,type);
         tourDAO.updateTour(editTour);
         RequestDispatcher dispatcher = req.getRequestDispatcher("view/edit.jsp");
         dispatcher.forward(req, resp);
@@ -181,8 +201,8 @@ public class TourServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         tourDAO.deleteTour(id);
         List<Tour> tours = tourDAO.showAllTours();
-        req.setAttribute("listTour", tours);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("view/list.jsp");
+        req.setAttribute("listdelete", tours);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/view/delete.jsp");
         dispatcher.forward(req, resp);
     }
 }
