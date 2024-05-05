@@ -29,7 +29,6 @@ body {
 
 #header a img {
     width: 60%;
-    height: 40%;
 }
 
 .navbar {
@@ -42,6 +41,8 @@ body {
     list-style: none;
     margin: 0 20px;
     position: relative;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar li a {
@@ -52,6 +53,6 @@ body {
     transition: 0.3s ease;
 }
 
-#list img {
+#table img {
     width: 300px;
 }

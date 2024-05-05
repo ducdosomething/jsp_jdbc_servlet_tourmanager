@@ -30,61 +30,32 @@
     </div>
 </section>
 
-<section id="list">
-    <div align="center">
-        <table border="1" cellpadding="5">
-            <tr>
-                <th>ID</th>
-                <th>Code</th>
-                <th>Destination</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Type</th>
-                <th>Actions</th>
-            </tr>
-            <c:forEach var="tour" items="${listTour}">
-                <tr>
-                    <td><c:out value="${tour.id}"/></td>
-                    <td><c:out value="${tour.code}"/></td>
-                    <td><c:out value="${tour.destination}"/></td>
-                    <td><c:out value="${tour.price}"/></td>
-                    <td>
-                        <img src="${tour.img}"/>
-                    </td>
-                    <td>${tour.type.typeName}</td>
-                    <td>
-                        <a href="/tours?action=edit&id=${tour.id}">Edit</a>
-                        <a href="/tours?action=delete&id=${tour.id}">Delete</a>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
-</section>
+<section id="table">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <span><i class="bi bi-table me-2"></i></span> Tour List
+                        <button onclick="window.location.href='/tours?action=create'" class="btn btn-primary">Create new tour</button>
+<%--                        <a href="/tours?action=create">Add New Tour</a>--%>
+                    </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <span><i class="bi bi-table me-2"></i></span> Data Table
-                </div>
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example" class="table table-striped data-table" style="width: 100%">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Code</th>
-                                <th>Destination</th>
-                                <th>Price</th>
-                                <th>Image</th>
-                                <th>Type</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped data-table" style="width: 100%">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Code</th>
+                                    <th>Destination</th>
+                                    <th>Price</th>
+                                    <th>Image</th>
+                                    <th>Type</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                 <c:forEach var="tour" items="${listTour}">
                                     <tr>
                                         <td><c:out value="${tour.id}"/></td>
@@ -96,36 +67,35 @@
                                         </td>
                                         <td>${tour.type.typeName}</td>
                                         <td>
-                                            <a href="/tours?action=edit&id=${tour.id}">Edit</a>
-                                            <a href="/tours?action=delete&id=${tour.id}">Delete</a>
+
+                                            <button type="button" class="btn btn-info" onclick="window.location.href='/tours?action=edit&id=${tour.getId()}'">Edit</button>
+                                            <button type="button" class="btn btn-danger" onclick="window.location.href='/tours?action=delete&id=${tour.getId()}'">Delete</button>
+
+<%--                                            <a href="/tours?action=edit&id=${tour.id}">Edit</a>--%>
+<%--                                            <a href="/tours?action=delete&id=${tour.id}">Delete</a>--%>
                                         </td>
                                     </tr>
                                 </c:forEach>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
-                            </tr>
-                            </tfoot>
-                        </table>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Code</th>
+                                    <th>Destination</th>
+                                    <th>Price</th>
+                                    <th>Image</th>
+                                    <th>Type</th>
+                                    <th>Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<%--<center>--%>
-<%--    <h1>Tour Management</h1>--%>
-<%--    <h2>--%>
-<%--        <a href="/tours?action=create">Add New Tour</a>--%>
-<%--    </h2>--%>
-<%--</center>--%>
+</section>
 
 <script src="./js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
