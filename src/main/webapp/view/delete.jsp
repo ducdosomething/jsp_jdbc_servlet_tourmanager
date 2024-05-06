@@ -9,13 +9,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="/css/delete.css">
     <title>Title</title>
 </head>
 <body>
-<div>
-    <h1>Bạn có muốn xóa tour này không?</h1>
-    <form action="" method="post">
-        <table border="1">
+
+<div id="tour-infor">
+    <h1>Tour detail</h1>
+    <form action="" method="post" class="form-control text-center">
+        <table border="1" class="table">
             <tr>
                 <td>ID</td>
                 <td value=""><c:out value ='${listdelete.id}'/></td>
@@ -39,9 +50,24 @@
             <tr>
                 <td colspan="2" ><img src="${listdelete.img}" width="200" height="200"></td>
             </tr>
+            <tr>
+                <div class="btn-style">
+                    <button class="btn btn-danger" >DELETE</button>
+                    <button class="btn btn-secondary">BACK</button>
+                </div>
+            </tr>
         </table>
-        <button>DELETE</button>
     </form>
+
+
 </div>
+
+<script src="./js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+<script src="./js/jquery-3.5.1.js"></script>
+<script src="./js/jquery.dataTables.min.js"></script>
+<script src="./js/dataTables.bootstrap5.min.js"></script>
+<script src="./js/script.js"></script>
+
 </body>
 </html>
