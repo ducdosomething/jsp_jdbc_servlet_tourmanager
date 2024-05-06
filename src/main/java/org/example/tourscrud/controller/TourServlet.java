@@ -91,10 +91,14 @@ public class TourServlet extends HttpServlet {
         String destination = req.getParameter("destination");
         double price = Double.parseDouble(req.getParameter("price"));
         String img = req.getParameter("img");
+        int typeId =Integer.parseInt(req.getParameter("type"));
+        Type type = tourDAO.searchByTypeId(typeId);
 
-        Tour editTour = new Tour(id, code, destination, price, img);
+        Tour editTour = new Tour(id, code, destination, price, "/img/" + img, type);
         tourDAO.updateTour(editTour);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("view/edit.jsp");
+        List<Tour> tours = tourDAO.showAllTours();
+        req.setAttribute("listTour", tours);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("view/list.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -110,6 +114,43 @@ public class TourServlet extends HttpServlet {
         dispatcher.forward(req, resp);
 
     }
+
+//    private void insertTour(HttpServletRequest request, HttpServletResponse response)
+//            throws SQLException, IOException, ServletException {
+//        for (Part part : request.getParts()) {
+//            String fileName = extractFileName(part);
+//            fileName = new File(fileName).getName();
+//
+//
+//            if (part.getName().equals("img")) {
+//                String imagePath = this.getFolderUpload().getAbsolutePath() + File.separator + fileName;
+//                part.write(imagePath);
+//
+//                part.write(request.getServletContext().getRealPath("/") + "img" + File.separator + fileName);
+//
+//                int id = Integer.parseInt(request.getParameter("id"));
+//                String code = request.getParameter("code");
+//                String destination = request.getParameter("destination");
+//                double price = Double.parseDouble(request.getParameter("price"));
+//                int type = Integer.parseInt(request.getParameter("type"));
+//
+//                Type type1 = tourDAO.searchByTypeId(type);
+//                Tour tour = new Tour(id, code, destination, price, "/img/" + fileName, type1);
+//                try {
+//                    tourDAO.addNewTour(tour);
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                request.setAttribute("message", "Upload File Success!");
+//                System.out.println(request.getServletContext().getContextPath());
+//                List<Tour> tours = tourDAO.showAllTours();
+//                request.setAttribute("listTour", tours);
+//                RequestDispatcher dispatcher = request.getRequestDispatcher("/view/list.jsp");
+//                dispatcher.forward(request, response);
+//            }
+//        }
+//        getServletContext().getRequestDispatcher("/view/list.jsp").forward(request, response);
+//    }
 
     private void insertTour(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
