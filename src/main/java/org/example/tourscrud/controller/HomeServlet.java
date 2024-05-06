@@ -13,6 +13,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect("/tours");
         // quy code
-        // abcxyaz
+        // duc b1
+
     }
 }
