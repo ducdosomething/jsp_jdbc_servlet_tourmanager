@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -160,10 +159,25 @@ public class TourServlet extends HttpServlet {
 
 
             if (part.getName().equals("img")) {
-                String imagePath = this.getFolderUpload().getAbsolutePath() + File.separator + fileName;
-                part.write(imagePath);
 
-                part.write(request.getServletContext().getRealPath("/") + "img" + File.separator + fileName);
+                InputStream inputStream = part.getInputStream();
+                writeToFile(this.getFolderUpload().getAbsolutePath() + File.separator + fileName, inputStream);
+//                String imagePath = this.getFolderUpload().getAbsolutePath() + File.separator + fileName;
+
+                // write len folder cua du an -> de redeploy thi server co anh san
+//                part.write(imagePath);
+
+
+                File folderImg = new File(request.getServletContext().getRealPath("/") + "img" );
+                if (!folderImg.exists()) {
+                    folderImg.mkdirs();
+                }
+
+                InputStream inputStream1 = part.getInputStream();
+                writeToFile(request.getServletContext().getRealPath("/") + "img" + File.separator + fileName, inputStream1);
+
+                // write len folder cua server
+//                part.write(request.getServletContext().getRealPath("/") + "img" + File.separator + fileName);
 
                 int id = Integer.parseInt(request.getParameter("id"));
                 String code = request.getParameter("code");
@@ -205,6 +219,24 @@ public class TourServlet extends HttpServlet {
             folderUpload.mkdirs();
         }
         return folderUpload;
+    }
+
+    public void writeToFile(String fileName, InputStream inputStream) {
+
+
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+            File file = new File(fileName);
+            int bRead = -1;
+            while ((bRead = inputStream.read()) != -1) {
+                    fileOutputStream.write(bRead);
+            }
+            fileOutputStream.close();
+            inputStream.close();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)
