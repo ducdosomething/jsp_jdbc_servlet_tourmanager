@@ -19,7 +19,11 @@ public class TourDAO implements ITourDAO {
 
     private static final String SELECT_ALL_TOURS = "SELECT tour.*, t_type.type as type_name  FROM tour join t_type on tour.type_id = t_type.id order by tour.id;";
     private static final String INSERT_TOUR_SQL = "INSERT INTO tour (id, code, destination, price, img, type_id) VALUES (?, ?, ?, ?, ?, ?);";
+//<<<<<<< HEAD
     private static final String UPDATE_TOURS_SQL = "update tour set id=?,  code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
+//=======
+//    private static final String UPDATE_TOURS_SQL = "update tour set id =?, code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
+//>>>>>>> fbe5a1faf29d0acd3d553df23e8aa9846f3389eb
     private static final String SELECT_TOUR_BY_ID = "select tour.*, t_type.id as t_type_id, t_type.type as t_type_type from tour join t_type on tour.type_id = t_type.id  where tour.id = ?;";
     private static final String SELECT_TYPE_BY_ID = "select * from t_type where id =?";
     private static final String DELETE_TOUR_SQL = "delete from tour where id = ?;";
@@ -150,8 +154,14 @@ public class TourDAO implements ITourDAO {
             statement.setString(3, tour.getDestination());
             statement.setDouble(4, tour.getPrice());
             statement.setString(5, tour.getImg());
+//<<<<<<< HEAD
             statement.setInt(6,tour.getType().getTypeId());
             statement.setInt(7,tour.getId());
+//=======
+//            statement.setInt(6, tour.getType().getTypeId());
+//            statement.setInt(7, tour.getId());
+//
+//>>>>>>> fbe5a1faf29d0acd3d553df23e8aa9846f3389eb
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
