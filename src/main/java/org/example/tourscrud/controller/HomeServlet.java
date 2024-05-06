@@ -14,5 +14,6 @@ public class HomeServlet extends HttpServlet {
         resp.sendRedirect("/tours");
         // quy code
         // duc b1
+
     }
 }
