@@ -15,11 +15,15 @@ import java.util.List;
 public class TourDAO implements ITourDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL=false";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "ducle211201";
+    private String jdbcPassword = "quydang123456";
 
     private static final String SELECT_ALL_TOURS = "SELECT tour.*, t_type.type as type_name  FROM tour join t_type on tour.type_id = t_type.id order by tour.id;";
     private static final String INSERT_TOUR_SQL = "INSERT INTO tour (id, code, destination, price, img, type_id) VALUES (?, ?, ?, ?, ?, ?);";
-    private static final String UPDATE_TOURS_SQL = "update tour set id =?, code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
+//<<<<<<< HEAD
+    private static final String UPDATE_TOURS_SQL = "update tour set id=?,  code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
+//=======
+//    private static final String UPDATE_TOURS_SQL = "update tour set id =?, code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
+//>>>>>>> fbe5a1faf29d0acd3d553df23e8aa9846f3389eb
     private static final String SELECT_TOUR_BY_ID = "select tour.*, t_type.id as t_type_id, t_type.type as t_type_type from tour join t_type on tour.type_id = t_type.id  where tour.id = ?;";
     private static final String SELECT_TYPE_BY_ID = "select * from t_type where id =?";
     private static final String DELETE_TOUR_SQL = "delete from tour where id = ?;";
@@ -59,7 +63,8 @@ public class TourDAO implements ITourDAO {
     public void addNewTour(Tour tour) throws SQLException {
         System.out.println(INSERT_TOUR_SQL);
 //        List<Type> type = showAllType();
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TOUR_SQL)) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TOUR_SQL)) {
             preparedStatement.setInt(1, tour.getId());
             preparedStatement.setString(2, tour.getCode());
             preparedStatement.setString(3, tour.getDestination());
@@ -132,7 +137,8 @@ public class TourDAO implements ITourDAO {
     @Override
     public boolean deleteTour(int id) throws SQLException {
         boolean rowDelete;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(DELETE_TOUR_SQL);) {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_TOUR_SQL);) {
             statement.setInt(1, id);
             rowDelete = statement.executeUpdate() >0;
         }
@@ -148,9 +154,14 @@ public class TourDAO implements ITourDAO {
             statement.setString(3, tour.getDestination());
             statement.setDouble(4, tour.getPrice());
             statement.setString(5, tour.getImg());
-            statement.setInt(6, tour.getType().getTypeId());
-            statement.setInt(7, tour.getId());
-
+//<<<<<<< HEAD
+            statement.setInt(6,tour.getType().getTypeId());
+            statement.setInt(7,tour.getId());
+//=======
+//            statement.setInt(6, tour.getType().getTypeId());
+//            statement.setInt(7, tour.getId());
+//
+//>>>>>>> fbe5a1faf29d0acd3d553df23e8aa9846f3389eb
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
