@@ -110,11 +110,13 @@ public class TourServlet extends HttpServlet {
         String destination = req.getParameter("destination");
         double price = Double.parseDouble(req.getParameter("price"));
         String img = req.getParameter("img");
-
+        int id_type = Integer.parseInt(req.getParameter("type"));
         Type type = tourDAO.searchByTypeId(id_type);
-        Tour editTour = new Tour(id, code, destination, price, img,type);
+        Tour editTour = new Tour(id, code, destination, price,"/img/"+ img,type);
         tourDAO.updateTour(editTour);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("view/edit.jsp");
+        List<Tour> listTour = tourDAO.showAllTours();
+        req.setAttribute("listTour", listTour);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("view/list.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -201,8 +203,8 @@ public class TourServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         tourDAO.deleteTour(id);
         List<Tour> tours = tourDAO.showAllTours();
-        req.setAttribute("listdelete", tours);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/view/delete.jsp");
+        req.setAttribute("listTour", tours);
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/view/list.jsp");
         dispatcher.forward(req, resp);
     }
 }

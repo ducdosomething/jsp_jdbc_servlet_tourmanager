@@ -13,13 +13,7 @@ public class Tour {
     public Tour() {
     }
 
-    public Tour(int id, String code, String destination, double price, String img) {
-        this.id = id;
-        this.code = code;
-        this.destination = destination;
-        this.price = price;
-        this.img = img;
-    }
+
 
     public Tour(int id, String code, String destination, double price, String img, Type type) {
         this.id = id;

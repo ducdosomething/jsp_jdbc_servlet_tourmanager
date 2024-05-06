@@ -17,7 +17,7 @@
     <a href=""><img src="/img/logovivu.png" alt=""></a>
     <div>
         <ul class="navbar">
-            <li><a href="#">Home</a></li>
+            <li><a href="/tours">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Blog</a></li>
             <li><a href="#">Hotline</a></li>
