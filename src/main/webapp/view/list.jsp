@@ -23,13 +23,13 @@
     <a href="/"><img src="/img/logovivu.png" alt=""></a>
     <div>
         <ul class="navbar">
-            <li><a href="#">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="#">About</a></li>
 <%--<<<<<<< HEAD--%>
 <%--            <li><a href="customer">Blog</a></li>--%>
 <%--            <li><a href="tours">Tour</a></li>--%>
 <%--=======--%>
-            <li><a href="#">Blog</a></li>
+            <li><a href="viewcustomer">ViewCustomer</a></li>
 <%--            <li>Hi <%--%>
 <%--                Admin admin = (Admin)session.getAttribute("username");--%>
 <%--                out.print(admin.getName());--%>
