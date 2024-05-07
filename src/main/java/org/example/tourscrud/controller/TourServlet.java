@@ -133,43 +133,6 @@ public class TourServlet extends HttpServlet {
 
     }
 
-//    private void insertTour(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, IOException, ServletException {
-//        for (Part part : request.getParts()) {
-//            String fileName = extractFileName(part);
-//            fileName = new File(fileName).getName();
-//
-//
-//            if (part.getName().equals("img")) {
-//                String imagePath = this.getFolderUpload().getAbsolutePath() + File.separator + fileName;
-//                part.write(imagePath);
-//
-//                part.write(request.getServletContext().getRealPath("/") + "img" + File.separator + fileName);
-//
-//                int id = Integer.parseInt(request.getParameter("id"));
-//                String code = request.getParameter("code");
-//                String destination = request.getParameter("destination");
-//                double price = Double.parseDouble(request.getParameter("price"));
-//                int type = Integer.parseInt(request.getParameter("type"));
-//
-//                Type type1 = tourDAO.searchByTypeId(type);
-//                Tour tour = new Tour(id, code, destination, price, "/img/" + fileName, type1);
-//                try {
-//                    tourDAO.addNewTour(tour);
-//                } catch (SQLException e) {
-//                    throw new RuntimeException(e);
-//                }
-//                request.setAttribute("message", "Upload File Success!");
-//                System.out.println(request.getServletContext().getContextPath());
-//                List<Tour> tours = tourDAO.showAllTours();
-//                request.setAttribute("listTour", tours);
-//                RequestDispatcher dispatcher = request.getRequestDispatcher("/view/list.jsp");
-//                dispatcher.forward(request, response);
-//            }
-//        }
-//        getServletContext().getRequestDispatcher("/view/list.jsp").forward(request, response);
-//    }
-
     private void insertTour(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         for (Part part : request.getParts()) {
@@ -241,7 +204,6 @@ public class TourServlet extends HttpServlet {
     }
 
     public void writeToFile(String fileName, InputStream inputStream) {
-
 
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(fileName);
