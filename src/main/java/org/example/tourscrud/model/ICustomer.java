@@ -11,5 +11,6 @@ public interface ICustomer {
     public Customers searchCusById(int id);
     public List<Customers> showAllCustomer();
     public boolean deleteCustomer(int id) throws SQLException;
-    public boolean updateCustomer(Tour tour) throws SQLException;
+
+    boolean updateCustomer(Customers customers) throws SQLException;
 }

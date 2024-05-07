@@ -6,16 +6,26 @@ public class Customers {
     private int age;
     private String address;
     private String phone;
+    private int member;
 
     private int codeTour;
 
-    public Customers(int id, String name, int age, String address, String phone, int codeTour) {
+    public Customers(int id, String name, int age, String address, String phone,int member, int codeTour) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
         this.phone = phone;
         this.codeTour = codeTour;
+        this.member = member;
+    }
+
+    public int getMember() {
+        return member;
+    }
+
+    public void setMember(int member) {
+        this.member = member;
     }
 
     public int getCodeTour() {
