@@ -31,7 +31,7 @@
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" id="password" name="password" required>
-            <a href="#" id="forgotPassword" class="form-text mt-3">Forget password?</a>
+            <a href="/" id="forgotPassword" class="form-text mt-3">Back to home</a>
         </div>
         <button type="submit" class="btn btn-primary mt-4">Login</button>
     </form>

@@ -22,10 +22,10 @@ public class AdminDAO implements IAdminDAO {
         boolean status = false;
         try (Connection connection = cs.getConnection();
              PreparedStatement statement = connection.prepareStatement(ADMIN_LOGIN_SQL)){
-            statement.setInt(1, admin.getId());
-            statement.setString(2, admin.getName());
-            statement.setString(3, admin.getUsername());
-            statement.setString(4, admin.getPassword());
+//            statement.setInt(1, admin.getId());
+//            statement.setString(2, admin.getName());
+            statement.setString(1, admin.getUsername());
+            statement.setString(2, admin.getPassword());
 
             try (ResultSet rs = statement.executeQuery()) {
                 if (rs.next()) {

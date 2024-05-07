@@ -1,3 +1,4 @@
+<%@ page import="org.example.tourscrud.model.Admin" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -22,10 +23,14 @@
     <a href="/"><img src="/img/logovivu.png" alt=""></a>
     <div>
         <ul class="navbar">
-            <li><a href="/">Home</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Blog</a></li>
-            <li><a href="tours">Tour</a></li>
+<%--            <li>Hi <%--%>
+<%--                Admin admin = (Admin)session.getAttribute("username");--%>
+<%--                out.print(admin.getName());--%>
+<%--            %></li>--%>
+            <li><a href="logout">Sign Out</a></li>
         </ul>
     </div>
 </section>
