@@ -51,10 +51,10 @@
                 <td colspan="2" ><img src="${listdelete.img}" width="200" height="200"></td>
             </tr>
             <tr>
-                <div class="btn-style">
+                <td class="btn-style">
                     <button class="btn btn-danger" >DELETE</button>
                     <button class="btn btn-secondary">BACK</button>
-                </div>
+                </td>
             </tr>
         </table>
     </form>

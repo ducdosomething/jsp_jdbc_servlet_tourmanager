@@ -62,7 +62,7 @@ button:hover {
 
 .btn-style {
     display: flex;
-    max-width: 100%;
+    width: 800px;
 }
 
 .btn-danger {
