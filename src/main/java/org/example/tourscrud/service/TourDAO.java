@@ -15,55 +15,53 @@ import java.util.List;
 public class TourDAO implements ITourDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL=false";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "quydang123456";
+    private String jdbcPassword = "ducle211201";
 
     private static final String SELECT_ALL_TOURS = "SELECT tour.*, t_type.type as type_name  FROM tour join t_type on tour.type_id = t_type.id order by tour.id;";
     private static final String INSERT_TOUR_SQL = "INSERT INTO tour (id, code, destination, price, img, type_id) VALUES (?, ?, ?, ?, ?, ?);";
-//<<<<<<< HEAD
     private static final String UPDATE_TOURS_SQL = "update tour set id=?,  code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
-//=======
-//    private static final String UPDATE_TOURS_SQL = "update tour set id =?, code = ?,destination= ?, price =?, img = ?, type_id = ? where id = ?;";
-//>>>>>>> fbe5a1faf29d0acd3d553df23e8aa9846f3389eb
     private static final String SELECT_TOUR_BY_ID = "select tour.*, t_type.id as t_type_id, t_type.type as t_type_type from tour join t_type on tour.type_id = t_type.id  where tour.id = ?;";
     private static final String SELECT_TYPE_BY_ID = "select * from t_type where id =?";
     private static final String DELETE_TOUR_SQL = "delete from tour where id = ?;";
     private static final String UPLOADS_PIC_SQL = "INSERT INTO tour (img) VALUES (?);";
 
+    ConnectionDAO cs = new ConnectionDAO();
+
     public TourDAO(){
 
     }
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
-    private void printSQLException(SQLException ex) {
-        for (Throwable e : ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
-            }
-        }
-    }
+//    protected Connection getConnection() {
+//        Connection connection = null;
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return connection;
+//    }
+//    private void printSQLException(SQLException ex) {
+//        for (Throwable e : ex) {
+//            if (e instanceof SQLException) {
+//                e.printStackTrace(System.err);
+//                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+//                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+//                System.err.println("Message: " + e.getMessage());
+//                Throwable t = ex.getCause();
+//                while (t != null) {
+//                    System.out.println("Cause: " + t);
+//                    t = t.getCause();
+//                }
+//            }
+//        }
+//    }
     @Override
     public void addNewTour(Tour tour) throws SQLException {
         System.out.println(INSERT_TOUR_SQL);
 //        List<Type> type = showAllType();
-        try (Connection connection = getConnection();
+        try (Connection connection = cs.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TOUR_SQL)) {
             preparedStatement.setInt(1, tour.getId());
             preparedStatement.setString(2, tour.getCode());
@@ -74,14 +72,14 @@ public class TourDAO implements ITourDAO {
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            printSQLException(e);
+            cs.printSQLException(e);
         }
     }
 
     @Override
     public Tour searchTourById(int id) {
         Tour tour = null;
-        try (Connection connection = getConnection();
+        try (Connection connection = cs.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TOUR_BY_ID);) {
             preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
@@ -99,7 +97,7 @@ public class TourDAO implements ITourDAO {
                 tour = new Tour(id, code, destination, price, img, type);
             }
         } catch (SQLException e) {
-            printSQLException(e);
+            cs.printSQLException(e);
         }
         return tour;
     }
@@ -109,7 +107,7 @@ public class TourDAO implements ITourDAO {
         List<Tour> tours = new ArrayList<>();
 
         try {
-            Connection connection = getConnection();
+            Connection connection = cs.getConnection();
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(SELECT_ALL_TOURS);
 
@@ -128,7 +126,7 @@ public class TourDAO implements ITourDAO {
                 tours.add(tour);
             }
         } catch (SQLException sqlException) {
-            printSQLException(sqlException);
+            cs.printSQLException(sqlException);
         }
 
         return tours;
@@ -137,7 +135,7 @@ public class TourDAO implements ITourDAO {
     @Override
     public boolean deleteTour(int id) throws SQLException {
         boolean rowDelete;
-        try (Connection connection = getConnection();
+        try (Connection connection = cs.getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_TOUR_SQL);) {
             statement.setInt(1, id);
             rowDelete = statement.executeUpdate() >0;
@@ -148,20 +146,14 @@ public class TourDAO implements ITourDAO {
     @Override
     public boolean updateTour(Tour tour) throws SQLException {
         boolean rowUpdated;
-        try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_TOURS_SQL);) {
+        try (Connection connection = cs.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_TOURS_SQL);) {
             statement.setInt(1, tour.getId());
             statement.setString(2, tour.getCode());
             statement.setString(3, tour.getDestination());
             statement.setDouble(4, tour.getPrice());
             statement.setString(5, tour.getImg());
-//<<<<<<< HEAD
             statement.setInt(6,tour.getType().getTypeId());
             statement.setInt(7,tour.getId());
-//=======
-//            statement.setInt(6, tour.getType().getTypeId());
-//            statement.setInt(7, tour.getId());
-//
-//>>>>>>> fbe5a1faf29d0acd3d553df23e8aa9846f3389eb
             rowUpdated = statement.executeUpdate() > 0;
         }
         return rowUpdated;
@@ -170,7 +162,7 @@ public class TourDAO implements ITourDAO {
     @Override
     public void saveImagePathToDatabase(String imagePath) throws ServletException {
         System.out.println(UPLOADS_PIC_SQL);
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPLOADS_PIC_SQL)) {
+        try (Connection connection = cs.getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPLOADS_PIC_SQL)) {
             preparedStatement.setString(1, imagePath);
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
@@ -203,7 +195,7 @@ public class TourDAO implements ITourDAO {
     @Override
     public Type searchByTypeId(int id) {
         Type type = null;
-        try (Connection connection = getConnection();
+        try (Connection connection = cs.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_TYPE_BY_ID);) {
             preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
@@ -216,7 +208,7 @@ public class TourDAO implements ITourDAO {
                 type = new Type(typeId, typeName);
             }
         } catch (SQLException e) {
-            printSQLException(e);
+            cs.printSQLException(e);
         }
         return type;
     }
@@ -224,7 +216,7 @@ public class TourDAO implements ITourDAO {
         List<Type> ty = new ArrayList<>();
 
         try {
-            Connection connection = getConnection();
+            Connection connection = cs.getConnection();
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("select * from t_type");
 
@@ -236,7 +228,7 @@ public class TourDAO implements ITourDAO {
                 ty.add(ty1);
             }
         } catch (SQLException sqlException) {
-            printSQLException(sqlException);
+            cs.printSQLException(sqlException);
         }
 
         return ty;
