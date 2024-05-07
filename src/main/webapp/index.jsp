@@ -23,7 +23,7 @@
 <%--            <li><a href="home">Home</a></li>--%>
 <%-->>>>>>> fbe5a1faf29d0acd3d553df23e8aa9846f3389eb--%>
             <li><a href="#">About</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="customer">Customer Oder</a></li>
             <li><a href="tours">Tour</a></li>
         </ul>
     </div>
