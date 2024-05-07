@@ -13,6 +13,7 @@
 <body>
 <a href="customer">Quay lại trang</a>
 <h1>Cám ơn quý khách hàng</h1>
+<h3>Mọi thắc mắc hay đóng góp vui lòng liên hệ sđt: 02343003006</h3>
 
 </body>
 </html>

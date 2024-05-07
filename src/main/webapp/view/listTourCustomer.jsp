@@ -67,6 +67,7 @@
             <td>${listCustour.getDestination()}</td>
             <td>${listCustour.getPrice()}</td>
             <td>${listcus.getMember()}</td>
+
             <td>${listcus.getMember()}*${listCustour.getPrice()}</td>
         </tr>
         <button type="button" class="btn btn-danger" onclick="window.location.href='/customer?action=delete&id=${listCustour.getId()}'">Hủy Bỏ</button>

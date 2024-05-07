@@ -131,6 +131,7 @@ public class CustomerServlet extends HttpServlet {
         request.setAttribute("listcus", customers);
         Tour tour = tourDAO.searchTourById(tour_id);
         request.setAttribute("listCustour", tour);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/listTourCustomer.jsp");
         dispatcher.forward(request, response);
     }
