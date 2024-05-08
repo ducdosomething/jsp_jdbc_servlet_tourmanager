@@ -25,7 +25,7 @@
 
 <div id="tour-infor">
     <h1>Tour detail</h1>
-    <form action="" method="post" class="form-control text-center">
+    <form action="" method="post" class="text-center">
         <table border="1" class="table">
             <tr>
                 <td>ID</td>

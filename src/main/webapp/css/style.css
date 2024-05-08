@@ -56,3 +56,11 @@ body {
 #table img {
     width: 300px;
 }
+
+.container {
+    padding-top: 50px;
+}
+
+.title {
+    text-align: center;
+}

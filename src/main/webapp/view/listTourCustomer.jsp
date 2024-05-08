@@ -31,36 +31,33 @@
 </section>
 
 <div class="container">
-    <form action="" method="post">
-    <table>
+    <form action="" method="post" class="form-control">
+    <table class="table">
         <tr>
-            <th colspan="5">Thông tin công ty</th>
+            <th colspan="5" class="title">Customer information</th>
         </tr>
         <tr>
-            <th colspan="5">PHIẾU XÁC NHẬN ĐẶT TOURS</th>
-        </tr>
-        <tr>
-            <td colspan="2">Họ và tên khách hàng</td>
+            <td colspan="2">Name</td>
             <td colspan="3">${listcus.getName()} </td>
         </tr>
         <tr>
-            <td colspan="2">Tuổi</td>
+            <td colspan="2">Age</td>
             <td colspan="3"> ${listcus.getAge()}</td>
         </tr>
         <tr>
-            <td colspan="2">Địa chỉ</td>
+            <td colspan="2">Address</td>
             <td colspan="3"> ${listcus.getAddress()}</td>
         </tr>
         <tr>
-            <td colspan="2">Số điện thoại</td>
+            <td colspan="2">Phone number</td>
             <td colspan="3">${listcus.getPhone()} </td>
         </tr>
         <tr>
             <td>ID Tour</td>
-            <td>Mô tả Tour</td>
-            <td>Đơn giá</td>
-            <td>SỐ lượng người</td>
-            <td>THành Tiền</td>
+            <td>Destination</td>
+            <td>Price</td>
+            <td>Number of People</td>
+            <td>Total</td>
         </tr>
         <tr>
             <td>${listCustour.getId()}</td>
@@ -69,9 +66,9 @@
             <td>${listcus.getMember()}</td>
             <td>${listcus.getMember()}*${listCustour.getPrice()}</td>
         </tr>
+    </table>
         <button type="button" class="btn btn-danger" onclick="window.location.href='/customer?action=delete&id=${listCustour.getId()}'">Hủy Bỏ</button>
         <button type="button" class="btn btn-danger" onclick="window.location.href='/customer?action=thankyou'">Xác nhận</button>
-    </table>
     </form>
 </div>
 
