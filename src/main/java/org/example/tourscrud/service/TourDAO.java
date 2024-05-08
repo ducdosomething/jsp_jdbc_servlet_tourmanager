@@ -30,37 +30,10 @@ public class TourDAO implements ITourDAO {
     public TourDAO(){
 
     }
-//    protected Connection getConnection() {
-//        Connection connection = null;
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return connection;
-//    }
-//    private void printSQLException(SQLException ex) {
-//        for (Throwable e : ex) {
-//            if (e instanceof SQLException) {
-//                e.printStackTrace(System.err);
-//                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-//                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-//                System.err.println("Message: " + e.getMessage());
-//                Throwable t = ex.getCause();
-//                while (t != null) {
-//                    System.out.println("Cause: " + t);
-//                    t = t.getCause();
-//                }
-//            }
-//        }
-//    }
+
     @Override
     public void addNewTour(Tour tour) throws SQLException {
         System.out.println(INSERT_TOUR_SQL);
-//        List<Type> type = showAllType();
         try (Connection connection = cs.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_TOUR_SQL)) {
             preparedStatement.setInt(1, tour.getId());

@@ -14,21 +14,6 @@ public class QuantityDAO implements IQuanity {
     public QuantityDAO() {
 
     }
-//    private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL  =false";
-//    private String jdbcUsername = "root";
-//    private String jdbcPassword = "ducle211201";
-//    protected Connection getConnection() {
-//        Connection connection = null;
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return connection;
-//    }
     @Override
     public List<QuanityDTO> showAllQuanity() {
         List<QuanityDTO> quanity = new ArrayList<>();
