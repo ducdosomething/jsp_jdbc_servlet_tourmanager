@@ -22,44 +22,41 @@
     <title>Title</title>
 </head>
 <body>
-
-<div id="tour-infor">
-    <h1>Tour detail</h1>
-    <form action="" method="post" class="text-center">
-        <table border="1" class="table">
-            <tr>
-                <td>ID</td>
-                <td value=""><c:out value ='${listdelete.id}'/></td>
-            </tr>
-            <tr>
-                <td>CODE</td>
-                <td value=""><c:out value ='${listdelete.code}'/></td>
-            </tr>
-            <tr>
-                <td>DESTINATION</td>
-                <td value=""><c:out value ='${listdelete.destination}'/></td>
-            </tr>
-            <tr>
-                <td>PRICE</td>
-                <td value=""><c:out value ='${listdelete.price}'/></td>
-            </tr>
-            <tr>
-                <td>TYPE</td>
-                <td value=""><c:out value ='${listdelete.type.typeName}'/></td>
-            </tr>
-            <tr>
-                <td colspan="2" ><img src="${listdelete.img}" width="200" height="200"></td>
-            </tr>
-            <tr>
-                <td class="btn-style">
-                    <button class="btn btn-danger" >DELETE</button>
-                    <button class="btn btn-secondary">BACK</button>
-                </td>
-            </tr>
-        </table>
-    </form>
-
-
+<div class="my-container">
+        <h1>Tour detail</h1>
+        <form action="" method="post" class="text-center">
+            <table border="1" class="table">
+                <tr>
+                    <td style="width: 70%">ID</td>
+                    <td style="width: 30%;" value=""><c:out value ='${listdelete.id}'/></td>
+                </tr>
+                <tr>
+                    <td>CODE</td>
+                    <td value=""><c:out value ='${listdelete.code}'/></td>
+                </tr>
+                <tr>
+                    <td>DESTINATION</td>
+                    <td value=""><c:out value ='${listdelete.destination}'/></td>
+                </tr>
+                <tr>
+                    <td>PRICE</td>
+                    <td value=""><c:out value ='${listdelete.price}'/></td>
+                </tr>
+                <tr>
+                    <td>TYPE</td>
+                    <td value=""><c:out value ='${listdelete.type.typeName}'/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" ><img src="${listdelete.img}" width="200" height="200"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button class="btn btn-danger" >DELETE</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <button class="btn btn-secondary" onclick="goToTourList()">BACK</button>
 </div>
 
 <script src="./js/bootstrap.bundle.min.js"></script>
@@ -68,6 +65,12 @@
 <script src="./js/jquery.dataTables.min.js"></script>
 <script src="./js/dataTables.bootstrap5.min.js"></script>
 <script src="./js/script.js"></script>
+
+<script>
+    function goToTourList() {
+        window.location.href = "/tours";
+    }
+</script>
 
 </body>
 </html>

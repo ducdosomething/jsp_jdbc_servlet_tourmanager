@@ -56,10 +56,10 @@ public class CustomerDAO implements ICustomer {
         List<Customers> customers = new ArrayList<>();
         Connection connection = cs.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from orderdetails");
+            PreparedStatement statement = connection.prepareStatement("select o.id, o.name, o.age, o.address, o.phone, o.member, t.price, (price*member) as total from orderdetails o join tour t on o.tour_id = t.id;");
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-
+            
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -92,4 +92,5 @@ public class CustomerDAO implements ICustomer {
         rowUpdate = statement.executeUpdate() >0;
         return rowUpdate;
     }
+
 }

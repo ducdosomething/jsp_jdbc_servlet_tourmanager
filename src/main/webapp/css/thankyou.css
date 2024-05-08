@@ -1,0 +1,16 @@
+body {
+    background-image: url('/img/thankyou.png');
+    background-size: cover; /* Cho phép ảnh phủ kín toàn bộ màn hình */
+    background-repeat: no-repeat; /* Tránh lặp lại ảnh */
+    background-position: center; /* Đặt vị trí ảnh ở giữa */
+}
+
+h3 {
+    color: white;
+    text-align: center;
+}
+
+.btn-primary {
+    margin: 0 620px;
+    border-radius: 10px;
+}

@@ -25,13 +25,17 @@
         <ul class="navbar">
             <li><a href="/">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="#">Blog</a></li>
+            <%--<<<<<<< HEAD--%>
+            <%--            <li><a href="customer">Blog</a></li>--%>
+            <%--            <li><a href="tours">Tour</a></li>--%>
+            <%--=======--%>
             <li><a href="viewcustomer">ViewCustomer</a></li>
-            <li>Hi <%
-                String username = (String)session.getAttribute("username");
-                out.print(username);
-            %></li>
+            <%--            <li>Hi <%--%>
+            <%--                Admin admin = (Admin)session.getAttribute("username");--%>
+            <%--                out.print(admin.getName());--%>
+            <%--            %></li>--%>
             <li><a href="logout">Sign Out</a></li>
+            <%-->>>>>>> bfbf90f3f52fdeae7a0ea06ec45de026c37f631a--%>
         </ul>
     </div>
 </section>
@@ -43,7 +47,6 @@
                 <div class="card">
                     <div class="card-header">
                         <span><i class="bi bi-table me-2"></i></span> Tour List
-                        <button onclick="window.location.href='/tours?action=create'" class="btn btn-primary">Create new tour</button>
                     </div>
 
                     <div class="card-body">
@@ -51,44 +54,18 @@
                             <table id="example" class="table table-striped data-table" style="width: 100%">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Code</th>
-                                    <th>Destination</th>
-                                    <th>Price</th>
-                                    <th>Image</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
+                                    <th>TYPE</th>
+                                    <th>QUANITY TOUR TYPE</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="tour" items="${listTour}">
+                                <c:forEach var="l" items="${listq}">
                                     <tr>
-                                        <td><c:out value="${tour.id}"/></td>
-                                        <td><c:out value="${tour.code}"/></td>
-                                        <td><c:out value="${tour.destination}"/></td>
-                                        <td><c:out value="${tour.price}"/></td>
-                                        <td>
-                                            <img src="${tour.img}"/>
-                                        </td>
-                                        <td>${tour.type.typeName}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-info" onclick="window.location.href='/tours?action=edit&id=${tour.getId()}'">Edit</button>
-                                            <button type="button" class="btn btn-danger" onclick="window.location.href='/tours?action=delete&id=${tour.getId()}'">Delete</button>
-                                        </td>
+                                        <td><c:out value="${l.type}"/></td>
+                                        <td><c:out value="${l.quanity}"/></td>
                                     </tr>
                                 </c:forEach>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Code</th>
-                                    <th>Destination</th>
-                                    <th>Price</th>
-                                    <th>Image</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>

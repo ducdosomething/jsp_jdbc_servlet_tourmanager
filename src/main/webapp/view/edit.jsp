@@ -1,3 +1,4 @@
+<%@ page import="org.example.tourscrud.model.Tour" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -83,75 +84,15 @@
     </form>
 </div>
 
-<%--<div align="center">--%>
-<%--    <form method="post">--%>
-<%--        <table border="1" cellpadding="5">--%>
-<%--            <c:if test="${tour != null}">--%>
-<%--                <input type="hidden" name="id" value="<c:out value='${tour.id}' />"/>--%>
-<%--            </c:if>--%>
-<%--            <tr>--%>
-<%--                <th>Tour Code:</th>--%>
-<%--                <td>--%>
-<%--                    <input type="text" name="code" size="45"--%>
-<%--                           value="<c:out value='${tour.code}' />"--%>
-<%--                    />--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <th>Tour Destination:</th>--%>
-<%--                <td>--%>
-<%--                    <input type="text" name="destination" size="45"--%>
-<%--                           value="<c:out value='${tour.destination}' />"--%>
-<%--                    />--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <th>Price:</th>--%>
-<%--                <td>--%>
-<%--                    <input type="text" name="price" size="15"--%>
-<%--                           value="<c:out value='${tour.price}' />"--%>
-<%--                    />--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <th>Image</th>--%>
-<%--                <td>--%>
-<%--                    <input type="file" name="img" id="img" size="15" onchange="handleInputImgChange()"/>--%>
-<%--                    <div>--%>
-<%--                        <img id="imgTour" src="${tour.img}" />--%>
-<%--                    </div>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <th>Type</th>--%>
-<%--                <td>--%>
-<%--                    <select id="type" name="type">--%>
-<%--                        <c:forEach items="${t_types}" var="t">--%>
-<%--                            <option value="${t.typeId}"--%>
-<%--                            <c:if test="${t.typeId == tour.type.typeId}">--%>
-<%--                                selected--%>
-<%--                            </c:if>--%>
-<%--                            >${t.typeName}</option>--%>
-<%--                        </c:forEach>--%>
-<%--                    </select>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td colspan="2" align="center">--%>
-<%--                    <input type="submit" value="Save"/>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--        </table>--%>
-<%--    </form>--%>
-<%--</div>--%>
-
 <script src="./js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
 <script src="./js/jquery-3.5.1.js"></script>
 <script src="./js/jquery.dataTables.min.js"></script>
 <script src="./js/dataTables.bootstrap5.min.js"></script>
 <script src="./js/script.js"></script>
-
+<%
+    Tour tour1 = (Tour) request.getAttribute("tour");
+%>
     <script>
         function handleInputImgChange(){
             let imgInp = document.getElementById("img");
@@ -164,6 +105,41 @@
 
         function goToTourList() {
             window.location.href = "/tours";
+        }
+
+        // xml blob res
+        function getImgURL(url, callback){
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function() {
+                callback(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        }
+
+        function loadURLToInputField(url){
+            getImgURL(url, (imgBlob)=>{
+                // Load img blob to input
+                const parts = url.split('/');
+                const fileName = parts[parts.length - 1];
+                // let fileName = 'hasFilename.jpg' // should .replace(/[/\\?%*:|"<>]/g, '-') for remove special char like / \
+                let file = new File([imgBlob], fileName,{type:"image/jpeg", lastModified:new Date().getTime()}, 'utf-8');
+                let container = new DataTransfer();
+                container.items.add(file);
+                document.querySelector('#img').files = container.files;
+                // document.querySelector('#status').files = container.files;
+
+            })
+        }
+
+
+        window.onload = function(e) {
+
+            var imgTour = "<%= tour1.getImg() %>";
+
+            console.log(imgTour)
+            loadURLToInputField(imgTour)
         }
     </script>
 </body>

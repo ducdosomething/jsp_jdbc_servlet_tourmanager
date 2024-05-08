@@ -146,7 +146,8 @@ public class TourDAO implements ITourDAO {
     @Override
     public boolean updateTour(Tour tour) throws SQLException {
         boolean rowUpdated;
-        try (Connection connection = cs.getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_TOURS_SQL);) {
+        try (Connection connection = cs.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_TOURS_SQL);) {
             statement.setInt(1, tour.getId());
             statement.setString(2, tour.getCode());
             statement.setString(3, tour.getDestination());
