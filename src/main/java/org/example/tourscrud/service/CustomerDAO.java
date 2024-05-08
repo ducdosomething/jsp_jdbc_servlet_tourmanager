@@ -9,23 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAO implements ICustomer {
-    protected  Connection getConnect() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL=false", "root", "quydang123456");
-
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return connection;
-    }
-
+    ConnectionDAO cs = new ConnectionDAO();
     @Override
     public void addNewCustomer(Customers customers) throws SQLException {
-        Connection connection = getConnect();
+        Connection connection = cs.getConnection();
         PreparedStatement statement = connection.prepareStatement("insert into orderdetails (id,name,age,address,phone,member,tour_id) values (?,?,?,?,?,?,?)");
         statement.setInt(1, customers.getId());
         statement.setString(2, customers.getName());
@@ -43,7 +30,7 @@ public class CustomerDAO implements ICustomer {
     @Override
     public Customers searchCusById(int id) {
         Customers customers = null;
-        Connection connection = getConnect();
+        Connection connection = cs.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("select * from orderdetails where id=?");
             statement.setInt(1, id);
@@ -67,7 +54,7 @@ public class CustomerDAO implements ICustomer {
     @Override
     public  List<Customers> showAllCustomer() {
         List<Customers> customers = new ArrayList<>();
-        Connection connection = getConnect();
+        Connection connection = cs.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("select o.id, o.name, o.age, o.address, o.phone, o.member, t.price, (price*member) as total from orderdetails o join tour t on o.tour_id = t.id;");
             ResultSet rs = statement.executeQuery();
@@ -83,7 +70,7 @@ public class CustomerDAO implements ICustomer {
     @Override
     public boolean deleteCustomer(int id) throws SQLException {
         boolean rowdelete;
-        Connection connection = getConnect();
+        Connection connection = cs.getConnection();
         PreparedStatement statement = connection.prepareStatement("delete from orderdetails where id=?");
         statement.setInt(1,id);
         rowdelete = statement.executeUpdate() > 0;
@@ -94,7 +81,7 @@ public class CustomerDAO implements ICustomer {
     @Override
     public boolean updateCustomer(Customers customers) throws SQLException {
         boolean rowUpdate;
-        Connection connection = getConnect();
+        Connection connection = cs.getConnection();
         PreparedStatement statement = connection.prepareStatement("update glasses set id=?,name=?,age=?,address=?,phone=? where id =?");
         statement.setInt(1, customers.getId());
         statement.setString(2,customers.getName());

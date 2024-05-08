@@ -55,8 +55,7 @@
         <div>
             <label for="type" class="form-label">Type</label>
             <select class="form-control" id="type" name="type">
-                <c:forEach items="${tour}" var="t">
-                    <option selected>Choose the tour type</option>
+                <c:forEach items="${t_types}" var="t">
                     <option value="${t.typeId}">${t.typeName}</option>
                 </c:forEach>
             </select>

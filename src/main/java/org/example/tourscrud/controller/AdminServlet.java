@@ -2,11 +2,8 @@ package org.example.tourscrud.controller;
 
 import org.example.tourscrud.model.DTO.OderdetailDTO;
 import org.example.tourscrud.model.DTO.QuanityDTO;
-import org.example.tourscrud.model.Tour;
-import org.example.tourscrud.service.ConnectionDAO;
-import org.example.tourscrud.service.TourDAO;
 import org.example.tourscrud.service.province.OderdetailDAO;
-import org.example.tourscrud.service.province.QuanityDAO;
+import org.example.tourscrud.service.province.QuantityDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,16 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.List;
 
 @WebServlet (name = "AdminServlet", urlPatterns = "/viewcustomer")
 public class AdminServlet extends HttpServlet {
     private OderdetailDAO oderdetailDAO;
-    private QuanityDAO quanityDAO;
+    private QuantityDAO quantityDAO;
     public void init() {
         oderdetailDAO = new OderdetailDAO();
-        quanityDAO = new QuanityDAO();
+        quantityDAO = new QuantityDAO();
     }
 
 
@@ -48,7 +44,7 @@ public class AdminServlet extends HttpServlet {
     }
 
     private void showAllQuanityView(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<QuanityDTO> listquanity = quanityDAO.showAllQuanity();
+        List<QuanityDTO> listquanity = quantityDAO.showAllQuanity();
         req.setAttribute("listq", listquanity);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/view/adminviewQuanity.jsp");
         dispatcher.forward(req, resp);

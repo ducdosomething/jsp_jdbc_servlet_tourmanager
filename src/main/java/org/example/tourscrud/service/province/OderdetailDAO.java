@@ -10,21 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OderdetailDAO implements IOderdetail {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL  =false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "quydang123456";
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
+
+    ConnectionDAO cs = new ConnectionDAO();
+    public OderdetailDAO() {
+
     }
+//    private String jdbcURL = "jdbc:mysql://localhost:3306/tour_manager?allowPublicKeyRetrieval=true&useSSL  =false";
+//    private String jdbcUsername = "root";
+//    private String jdbcPassword = "ducle211201";
+//    protected Connection getConnection() {
+//        Connection connection = null;
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return connection;
+//    }
     @Override
     public OderdetailDTO searchCusById(int id) {
         return null;
@@ -33,7 +38,7 @@ public class OderdetailDAO implements IOderdetail {
     @Override
     public List<OderdetailDTO> showAllOderdetail() {
         List<OderdetailDTO> oder = new ArrayList<>();
-        Connection connection = getConnection();
+        Connection connection = cs.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement("select t.code, o.name, o.address, o.phone, o.member, t.price, (price*member) as total from orderdetails o join tour t on o.tour_id = t.id;");
             ResultSet rs = statement.executeQuery();
