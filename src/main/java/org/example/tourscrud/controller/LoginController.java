@@ -48,7 +48,6 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Chuyển hướng đến trang đăng nhập (login page)
         resp.sendRedirect("/view/login.jsp");
     }
 

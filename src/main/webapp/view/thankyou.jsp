@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel='shortcut icon' href='https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-6/399907868_122095451318111239_5994386970970505493_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=YbnaucGG0lMQ7kNvgHN-SE3&_nc_ht=scontent.fsgn2-4.fna&oh=00_AfCHf_jThCvQyGDA2FIbLrzXfojZ7QDLm_VCjjavb_ZrxA&oe=6640BD52'/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/thankyou.css">
     <title>Title</title>
